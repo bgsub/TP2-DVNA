@@ -1,0 +1,23 @@
+# Damn Vulnerable NodeJS Application
+
+version: "2.1"
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile-dev
+    ports:
+      - 9090:9090
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres-db
+    env_file:
+      - ./vars.env
+
+  postgres-db:
+    image: postgres:13
+    expose:
+      - "5432"
+    env_file:
+      - ./vars.env
