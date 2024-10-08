@@ -44,8 +44,8 @@ jobs:
             host: ${{ secrets.AZURE_IP }}
             username: ${{ secrets.AZURE_USER }}
             key: ${{ secrets.AZURE_SSH_KEY }}
-            source: "docker-compose.yml entrypoint-dev.sh wait-for-it.sh"
-            target: "~/docker-utils"
+            source: "docker-compose.yml"
+            target: "~/"
         
       - name: Run Docker Compose on Azure VM
         uses: appleboy/ssh-action@master
@@ -56,6 +56,5 @@ jobs:
             script: |
              docker stop $(docker ps -a -q)
              docker system prune -a -f
-             cd ~/docker-utils
              docker-compose up -d
                     
