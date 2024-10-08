@@ -44,4 +44,4 @@ jobs:
             ssh-private-key: ${{ secrets.AZURE_SSH_KEY }}
       - name: Load and Run Docker image on Azure VM
         run: |
-            ssh ${{ secrets.AZURE_USER }}@${{ secrets.AZURE_IP }} "docker run -d --name inf8100-tp2 -p 80:80 bgsub/inf8100:latest"
+            ssh -o StrictHostKeyChecking=no ${{ secrets.AZURE_USER }}@${{ secrets.AZURE_IP }} "docker run -d --name inf8100-tp2 -p 80:80 bgsub/inf8100:latest"
