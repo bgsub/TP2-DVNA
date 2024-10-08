@@ -10,6 +10,6 @@ COPY . .
 RUN echo "Host geoserver" && node -v && chmod +x /app/entrypoint.sh \
 	&& npm install
 
-EXPOSE 80
+EXPOSE 8080
 
 CMD ["bash", "/app/entrypoint.sh"]
