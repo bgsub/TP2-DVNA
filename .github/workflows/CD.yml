@@ -53,4 +53,8 @@ jobs:
             host: ${{ secrets.AZURE_IP }}
             username: ${{ secrets.AZURE_USER }}
             key: ${{ secrets.AZURE_SSH_KEY }}
-            script: "docker-compose up -d"
+            script: "
+                    docker stop $(docker ps -a -q)
+                    docker system prune -a -f
+                    docker-compose up -d
+                    "
