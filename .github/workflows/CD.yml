@@ -44,8 +44,8 @@ jobs:
             host: ${{ secrets.AZURE_IP }}
             username: ${{ secrets.AZURE_USER }}
             key: ${{ secrets.AZURE_SSH_KEY }}
-            source: "docker-compose.yml"
-            target: "~/"
+            source: "docker-compose.yml entrypoint-dev.sh wait-for-it.sh"
+            target: "~/docker-utils"
         
       - name: Run Docker Compose on Azure VM
         uses: appleboy/ssh-action@master
