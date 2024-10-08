@@ -56,5 +56,6 @@ jobs:
             script: |
              docker stop $(docker ps -a -q)
              docker system prune -a -f
+             cd ~/docker-utils
              docker-compose up -d
                     
