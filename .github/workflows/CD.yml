@@ -37,7 +37,6 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: bgsub/inf8100:latest
-          labels: ${{ steps.meta.outputs.labels }}
 
       - name: Deploy to Azure Container via ssh
         uses: webfactory/ssh-agent@v0.5.3
