@@ -3,7 +3,7 @@ services:
   inf8100-tp2:
     image: bgsub/inf8100:latest
     ports:
-      - 80:80
+      - 8080:80
     depends_on:
       - postgres-db
   postgres-db:
