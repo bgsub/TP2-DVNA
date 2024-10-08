@@ -1,5 +1,11 @@
 version: '3'
 services:
+  inf8100-tp2:
+    image: bgsub/inf8100:latest
+    ports:
+      - 80:80
+    depends_on:
+      - postgres-db
   postgres-db:
     image: postgres:13
     expose:
@@ -9,9 +15,3 @@ services:
       - POSTGRES_DATABASE=dvna
       - POSTGRES_PASSWORD=passw0rd
       - POSTGRES_RANDOM_ROOT_PASSWORD=yes
-  inf8100-tp2:
-    image: bgsub/inf8100:latest
-    ports:
-      - 80:80
-    depends_on:
-      - postgres-db
