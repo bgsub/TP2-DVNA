@@ -36,18 +36,17 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: bgsub/inf8100:latest
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: 'Deploy to Azure Container Instances'
-        uses: 'azure/aci-deploy@v1'
+      - name: Deploy to Azure Container via ssh
+        uses: webfactory/ssh-agent@v0.5.3
         with:
-            resource-group: ${{ secrets.AZURE_RESSOURCE_GROUP }}
-            dns-name-label: ${{ secrets.AZURE_DNS_NAME_LABEL }}
-            image: bgsub/inf8100:${{ github.sha }}
-            cpu: 1   
-            memory: 0.5   
-            registry-username: ${{ secrets.DOCKER_USERNAME }}
-            registry-password: ${{ secrets.DOCKER_PASSWORD }}
-            name: contoso-container
-            location: 'Canada Central'
+            ssh-private-key: ${{ secrets.AZURE_SSH_KEY }}
+
+      - name: Copy Docker image to Azure VM
+        run: |
+            scp image.tar ${{ secrets.AZURE_USER }}@${{ secrets.AZURE_IP }}:/home/username/image.tar
+      - name: Load and Run Docker image on Azure VM
+        run: |
+            ssh ${{ secrets.AZURE_USER }}@${{ secrets.AZURE_IP }} "docker load -i /home/username/image.tar && docker run -d --name inf8100-tp2 -p 80:80 bgsub/inf8100:latest"
