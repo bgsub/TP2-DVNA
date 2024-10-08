@@ -38,13 +38,19 @@ jobs:
           push: true
           tags: bgsub/inf8100:latest
 
-      - name: Deploy to Azure Container via ssh
-        uses: webfactory/ssh-agent@v0.5.3
+      - name: Copy docker-compose.yml to Azure VM
+        uses: appleboy/scp-action@master
         with:
-            ssh-private-key: ${{ secrets.AZURE_SSH_KEY }}
-      - name: Load and Run Docker image on Azure VM
-        run: |
-            ssh -o StrictHostKeyChecking=no ${{ secrets.AZURE_USER }}@${{ secrets.AZURE_IP }} "
-            docker run -d --name postgres -e POSTGRES_USER=dvna -e POSTGRES_DATABASE=dvna -e POSTGRES_PASSWORD=passw0rd -e POSTGRES_RANDOM_ROOT_PASSWORD=yes -p 5432:5432 postgres:13
-            docker run -d --name inf8100-tp2 -p 80:80 bgsub/inf8100:latest
-            "
+            host: ${{ secrets.AZURE_IP }}
+            username: ${{ secrets.AZURE_USER }}
+            key: ${{ secrets.AZURE_SSH_PRIVATE_KEY }}
+            source: "docker-compose.yml"
+            target: "~/"
+        
+      - name: Run Docker Compose on Azure VM
+        uses: appleboy/ssh-action@master
+        with:
+            host: ${{ secrets.AZURE_IP }}
+            username: ${{ secrets.AZURE_USER }}
+            key: ${{ secrets.AZURE_SSH_PRIVATE_KEY }}
+            script: "docker-compose up -d"

@@ -1,23 +1,17 @@
-# Damn Vulnerable NodeJS Application
-
-version: "2.1"
+version: '3'
 services:
-  app:
-    build:
-      context: ./
-      dockerfile: Dockerfile-dev
-    ports:
-      - 9090:9090
-    volumes:
-      - .:/app
-    depends_on:
-      - postgres-db
-    env_file:
-      - ./vars.env
-
-  postgres-db:
+  postgres:
     image: postgres:13
-    expose:
-      - "5432"
-    env_file:
-      - ./vars.env
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=dvna
+      - POSTGRES_DATABASE=dvna
+      - POSTGRES_PASSWORD=passw0rd
+      - POSTGRES_RANDOM_ROOT_PASSWORD=yes
+  inf8100-tp2:
+    image: bgsub/inf8100:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - postgres
