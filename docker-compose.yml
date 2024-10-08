@@ -2,8 +2,8 @@ version: '3'
 services:
   postgres:
     image: postgres:13
-    ports:
-      - "5432:5432"
+    expose:
+      - "5432"
     environment:
       - POSTGRES_USER=dvna
       - POSTGRES_DATABASE=dvna
@@ -12,6 +12,6 @@ services:
   inf8100-tp2:
     image: bgsub/inf8100:latest
     ports:
-      - "80:80"
+      - 80:80
     depends_on:
       - postgres
