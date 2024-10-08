@@ -44,4 +44,7 @@ jobs:
             ssh-private-key: ${{ secrets.AZURE_SSH_KEY }}
       - name: Load and Run Docker image on Azure VM
         run: |
-            ssh -o StrictHostKeyChecking=no ${{ secrets.AZURE_USER }}@${{ secrets.AZURE_IP }} "docker run -d --name inf8100-tp2 -p 80:80 bgsub/inf8100:latest"
+            ssh -o StrictHostKeyChecking=no ${{ secrets.AZURE_USER }}@${{ secrets.AZURE_IP }} "
+            docker run -d --name postgres -e POSTGRES_USER=dvna -e POSTGRES_DATABASE=dvna -e POSTGRES_PASSWORD=passw0rd -e POSTGRES_RANDOM_ROOT_PASSWORD=yes -p 5432:5432 postgres:13
+            docker run -d --name inf8100-tp2 -p 80:80 bgsub/inf8100:latest
+            "
