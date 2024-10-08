@@ -38,3 +38,16 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: 'Deploy to Azure Container Instances'
+        uses: 'azure/aci-deploy@v1'
+        with:
+            resource-group: ${{ secrets.AZURE_RESSOURCE_GROUP }}
+            dns-name-label: ${{ secrets.AZURE_DNS_NAME_LABEL }}
+            image: bgsub/inf8100:${{ github.sha }}
+            cpu: 1   
+            memory: 0.5   
+            registry-username: ${{ secrets.DOCKER_USERNAME }}
+            registry-password: ${{ secrets.DOCKER_PASSWORD }}
+            name: contoso-container
+            location: 'Canada Central'
