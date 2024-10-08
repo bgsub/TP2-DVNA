@@ -2,4 +2,4 @@
 
 chmod +x /app/wait-for-it.sh
 
-/bin/bash /app/wait-for-it.sh $POSTGRES_HOST:$POSTGRES_PORT -t 300 -- npm start
+/bin/bash /app/wait-for-it.sh postgres-db:5432 -t 300 -- npm start
