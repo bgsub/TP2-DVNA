@@ -1,6 +1,6 @@
 version: '3'
 services:
-  postgres:
+  postgres-db:
     image: postgres:13
     expose:
       - "5432"
@@ -14,4 +14,4 @@ services:
     ports:
       - 80:80
     depends_on:
-      - postgres
+      - postgres-db
