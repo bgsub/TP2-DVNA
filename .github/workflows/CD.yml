@@ -42,10 +42,6 @@ jobs:
         uses: webfactory/ssh-agent@v0.5.3
         with:
             ssh-private-key: ${{ secrets.AZURE_SSH_KEY }}
-
-      - name: Copy Docker image to Azure VM
-        run: |
-            scp -o StrictHostKeyChecking=no image.tar ${{ secrets.AZURE_USER }}@${{ secrets.AZURE_IP }}:/home/${{ secrets.AZURE_USER }}/image.tar
       - name: Load and Run Docker image on Azure VM
         run: |
-            ssh ${{ secrets.AZURE_USER }}@${{ secrets.AZURE_IP }} "docker load -i /home/${{ secrets.AZURE_USER }}/image.tar && docker run -d --name inf8100-tp2 -p 80:80 bgsub/inf8100:latest"
+            ssh ${{ secrets.AZURE_USER }}@${{ secrets.AZURE_IP }} "docker run -d --name inf8100-tp2 -p 80:80 bgsub/inf8100:latest"
