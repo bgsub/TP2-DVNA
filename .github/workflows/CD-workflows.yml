@@ -54,6 +54,6 @@ jobs:
             username: ${{ secrets.AZURE_USER }}
             key: ${{ secrets.AZURE_SSH_KEY }}
             script: |
-             docker stop $(docker ps -a -q)
+             docker stop azureuser-inf8100-tp2-1
              docker system prune -a -f
              docker-compose up -d 
