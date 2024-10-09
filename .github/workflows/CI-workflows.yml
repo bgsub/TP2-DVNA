@@ -18,6 +18,7 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
   security:
+    name: Snyk-analysis
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
