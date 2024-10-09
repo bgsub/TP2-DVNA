@@ -60,6 +60,7 @@ jobs:
              
   deploy: 
     name: deploy on Azure vm
+    needs: push_to_registry
     runs-on: ubuntu-latest
     steps: 
       - name: deploy docker-copose.yml
