@@ -1,17 +1,22 @@
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+  push: 
+    branches: [main]
 
 
+name: integration-analysis
 jobs:
   sonarqube:
     name: Sonarqube-analysis
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: checkout code 
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0 
-      - uses: sonarsource/sonarqube-scan-action@v3
+      - name: analyze code
+        uses: sonarsource/sonarqube-scan-action@v3
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
