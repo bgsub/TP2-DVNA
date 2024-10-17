@@ -28,7 +28,6 @@
     "md5": "^2.2.1",
     "morgan": "^1.10.0",
     "mysql2": "^3.11.3",
-    "node-serialize": "0.0.4",
     "npm": "^10.9.0",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
