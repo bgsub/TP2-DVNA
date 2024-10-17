@@ -3,7 +3,6 @@ var bCrypt = require('bcrypt')
 const exec = require('child_process').exec;
 var mathjs = require('mathjs')
 const xml2js = require('xml2js');
-var serialize = require("node-serialize")
 const Op = db.Sequelize.Op
 
 module.exports.userSearch = function (req, res) {
@@ -215,7 +214,7 @@ module.exports.listUsersAPI = function (req, res) {
 module.exports.bulkProductsLegacy = function (req,res){
 	// TODO: Deprecate this soon
 	if(req.files.products){
-		var products = serialize.unserialize(req.files.products.data.toString('utf8'))
+		var products = JSON.parse(req.files.products.data.toString('utf8'));
 		products.forEach( function (product) {
 			var newProduct = new db.Product()
 			newProduct.name = product.name
