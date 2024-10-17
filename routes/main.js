@@ -8,6 +8,7 @@ module.exports = function (passport) {
 	})
 
 	router.get('/login', authHandler.isNotAuthenticated, function (req, res) {
+		console.log("Login page accessed");
 		res.render('login')
 	})
 
